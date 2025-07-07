@@ -98,10 +98,10 @@ const App = () => {
               }`}
             >
               {/* Background Gradient/Shapes */}
-              <div className="absolute inset-0 z-0 opacity-20">
-                <div className="absolute top-1/4 left-1/4 w-72 h-72 bg-purple-500 rounded-full mix-blend-multiply filter blur-xl opacity-70 animate-blob"></div>
-                <div className="absolute top-1/2 right-1/4 w-72 h-72 bg-blue-500 rounded-full mix-blend-multiply filter blur-xl opacity-70 animate-blob animation-delay-2000"></div>
-                <div className="absolute bottom-1/4 left-1/3 w-72 h-72 bg-pink-500 rounded-full mix-blend-multiply filter blur-xl opacity-70 animate-blob animation-delay-4000"></div>
+              <div className="absolute inset-0 z-0 opacity-50">
+                <div className="absolute top-1/4 left-1/4 w-72 h-72 bg-purple-900 rounded-full mix-blend-multiply filter blur-xl opacity-70 animate-blob"></div>
+                <div className="absolute top-1/2 right-1/4 w-72 h-72 bg-blue-900 rounded-full mix-blend-multiply filter blur-xl opacity-70 animate-blob animation-delay-2000"></div>
+                <div className="absolute bottom-1/4 left-1/3 w-72 h-72 bg-pink-900 rounded-full mix-blend-multiply filter blur-xl opacity-70 animate-blob animation-delay-4000"></div>
               </div>
 
               <div className="relative z-10 max-w-4xl mx-auto">
@@ -440,7 +440,7 @@ const App = () => {
                     title="ZeCommerce"
                     darkTheme={darkTheme}
                     description="A full-stack e-commerce application with user authentication, product catalog, shopping cart, and payment integration."
-                    imageUrl="/image/lincwall.jpg"
+                    imageUrl="/image/zecommerce.png"
                     technologies={[
                       "Next.js",
                       "Tailwind CSS",
@@ -458,10 +458,10 @@ const App = () => {
                     title="Note App"
                     darkTheme={darkTheme}
                     description="A responsive Note & Todo application with drag-and-drop functionality, real-time updates, and user collaboration features."
-                    imageUrl="/image/lincwall.jpg"
+                    imageUrl="/image/noteapp.png"
                     technologies={["React", "Firebase", "CSS3", "JavaScript"]}
                     githubLink="#"
-                    liveLink="#"
+                    liveLink="https://noteapp-s1.web.app/"
                   />
                   {/* Project 3 */}
                   <ProjectCard
@@ -480,14 +480,14 @@ const App = () => {
                       "Play-Store",
                     ]}
                     githubLink="#"
-                    liveLink="#"
+                    liveLink="https://play.google.com/store/apps/details?id=com.zero.lincwall"
                   />
                   {/* Project 4 */}
                   <ProjectCard
                     title="ZeCon"
                     darkTheme={darkTheme}
                     description="A modern cross-platform End-to-End encrypted chat application for interacting with your friends, featuring real-time high-quality voice and video calls."
-                    imageUrl="/image/lincwall.jpg"
+                    imageUrl="/image/zecon.jpg"
                     technologies={[
                       "Nest.js",
                       "Python (Flask)",
@@ -505,7 +505,7 @@ const App = () => {
                     title="Personal Blog Site"
                     darkTheme={darkTheme}
                     description="A sleek, content-focused personal blog for both web and mobile."
-                    imageUrl="/image/lincwall.jpg"
+                    imageUrl="/image/blogweb.png"
                     technologies={[
                       "Node.js",
                       "PostgreSQL",
@@ -514,14 +514,14 @@ const App = () => {
                       "Jwt",
                     ]}
                     githubLink="#"
-                    liveLink="#"
+                    liveLink="https://blog-web-azure.vercel.app/"
                   />
                   {/* Project 6 */}
                   <ProjectCard
                     title="ZeProperties"
                     darkTheme={darkTheme}
                     description="A real-estate property management application allowing categization of properties depending on their interest."
-                    imageUrl="/image/lincwall.jpg"
+                    imageUrl="/image/zeproperties.png"
                     technologies={[
                       "Next.js",
                       "Tailwind CSS",
@@ -529,6 +529,42 @@ const App = () => {
                       "Node.js",
                       "Directus",
                       "Vercel",
+                    ]}
+                    githubLink="#"
+                    liveLink="https://zeproperties.vercel.app/"
+                  />
+                  <ProjectCard
+                    title="Buraq-Oil"
+                    darkTheme={darkTheme}
+                    description="A tanker management and tracking application for Buraq Oil(Oil distributor company), featuring real-time tracking and management of oil tankers."
+                    imageUrl="/image/buraqoil.png"
+                    technologies={[
+                      "Flutter",
+                      "Node.js",
+                      "Next.js",
+                      "Tailwind CSS",
+                      "PostgreSQL",
+                      "Firebase Authentication",
+                      "FIREBASE STORAGE",
+                      "Play-Store",
+                    ]}
+                    githubLink="#"
+                    liveLink="#"
+                  />
+                  <ProjectCard
+                    title="OASSTS"
+                    darkTheme={darkTheme}
+                    description="Orang Asli School Students Transport System (OASSTS) is a transportation management and tracking application for Government School of Malaysia, featuring real-time tracking and management of school buses."
+                    imageUrl="/image/oassts.png"
+                    technologies={[
+                      "Flutter",
+                      "Node.js",
+                      "Next.js",
+                      "Tailwind CSS",
+                      "Firebase Authentication",
+                      "FIREBASE STORAGE",
+                      "Rfid Reader",
+                      "Play-Store",
                     ]}
                     githubLink="#"
                     liveLink="#"
