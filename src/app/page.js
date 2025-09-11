@@ -502,13 +502,14 @@ const App = () => {
                   />
                   {/* Project 5 */}
                   <ProjectCard
-                    title="Personal Blog Site"
+                    title="ZeeBlog"
                     darkTheme={darkTheme}
                     description="A sleek, content-focused personal blog for both web and mobile."
                     imageUrl="/image/blogweb.png"
                     technologies={[
                       "Node.js",
-                      "PostgreSQL",
+                      "Firebase Storage",
+                      "express js",
                       "Next.js",
                       "Flutter",
                       "Jwt",
