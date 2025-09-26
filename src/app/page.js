@@ -1,10 +1,12 @@
 "use client"; // Ensure this file is treated as a client component in Next.js
 import React, { useState, useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
+import formsubmit from "./components/service";
 import {
   Github,
   Linkedin,
   Mail,
+  Send,
   Menu,
   X,
   Code,
@@ -26,6 +28,20 @@ const App = () => {
   const [activeSection, setActiveSection] = useState("home");
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
 
+  const [formErrors, setFormErrors] = useState({});
+
+  const [formValues, setFormValues] = useState({
+    name: "",
+    email: "",
+    message: "",
+  });
+
+  const [toast, setToast] = useState({
+    show: false,
+    message: "",
+    type: "success",
+  });
+
   const [darkTheme, setDarkTheme] = useState(true);
   const [isMounted, setIsMounted] = useState(false); // To track if the component has mounted on the client
 
@@ -36,6 +52,54 @@ const App = () => {
       setDarkTheme(savedDarkTheme);
     }
   }, []);
+
+  const handleInputChange = (e) => {
+    const { name, value } = e.target;
+    setFormValues((prev) => ({ ...prev, [name]: value }));
+  };
+
+  const validateForm = () => {
+    const errors = {};
+    if (!formValues.name.trim()) {
+      errors.name = "Name is required.";
+    }
+    if (!formValues.email.trim()) {
+      errors.email = "Email is required.";
+    } else if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(formValues.email)) {
+      errors.email = "Please enter a valid email address.";
+    }
+    if (!formValues.message.trim()) {
+      errors.message = "Message is required.";
+    }
+    setFormErrors(errors);
+    return Object.keys(errors).length === 0;
+  };
+
+  // Function to handle form submission
+  const handleFormSubmit = async (e) => {
+    e.preventDefault(); // Prevent default form submission
+    if (!validateForm()) {
+      return; // Stop submission if validation fails
+    }
+    try {
+      await formsubmit(formValues);
+      setToast({
+        show: true,
+        message: "Message sent successfully!",
+        type: "success",
+      });
+      // Reset form fields
+      setFormValues({ name: "", email: "", message: "" });
+      setFormErrors({});
+    } catch (error) {
+      console.error("Form submission failed:", error);
+      setToast({
+        show: true,
+        message: "Failed to send message. Please try again.",
+        type: "error",
+      });
+    }
+  };
 
   // Function to toggle theme
   const toggleTheme = () => {
@@ -80,6 +144,17 @@ const App = () => {
         isMobileMenuOpen={isMobileMenuOpen}
         setIsMobileMenuOpen={setIsMobileMenuOpen}
       />
+
+      {/* Toast Notification */}
+      <AnimatePresence>
+        {toast.show && (
+          <Toast
+            message={toast.message}
+            type={toast.type}
+            onClose={() => setToast({ ...toast, show: false })}
+          />
+        )}
+      </AnimatePresence>
 
       {/* Main Content Area */}
       <main className="pt-24">
@@ -437,34 +512,6 @@ const App = () => {
                 <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
                   {/* Project 1 */}
                   <ProjectCard
-                    title="ZeCommerce"
-                    darkTheme={darkTheme}
-                    description="A full-stack e-commerce application with user authentication, product catalog, shopping cart, and payment integration."
-                    imageUrl="/image/zecommerce.png"
-                    technologies={[
-                      "Next.js",
-                      "Tailwind CSS",
-                      "Framer Motion",
-                      "Nest.js",
-                      "Node.js",
-                      "MongoDB",
-                      "GRPC",
-                    ]}
-                    githubLink="#"
-                    liveLink="#"
-                  />
-                  {/* Project 2 */}
-                  <ProjectCard
-                    title="Note App"
-                    darkTheme={darkTheme}
-                    description="A responsive Note & Todo application with drag-and-drop functionality, real-time updates, and user collaboration features."
-                    imageUrl="/image/noteapp.png"
-                    technologies={["React", "Firebase", "CSS3", "JavaScript"]}
-                    githubLink="#"
-                    liveLink="https://noteapp-s1.web.app/"
-                  />
-                  {/* Project 3 */}
-                  <ProjectCard
                     title="Lincwall"
                     darkTheme={darkTheme}
                     description="A cross-platform Social Media mobile application for Students of Lincoln University,Malaysia."
@@ -482,7 +529,22 @@ const App = () => {
                     githubLink="#"
                     liveLink="https://play.google.com/store/apps/details?id=com.zero.lincwall"
                   />
-                  {/* Project 4 */}
+                  <ProjectCard
+                    title="ZeeBlog"
+                    darkTheme={darkTheme}
+                    description="A cross-platform Bloging mobile application with writing and editing capabilities using AI."
+                    imageUrl="/image/blogapp1.jpg"
+                    technologies={[
+                      "Flutter",
+                      "Express.js",
+                      "Firebase Storage",
+                      "Node.js",
+                      "Gemini API",
+                      "Play-Store",
+                    ]}
+                    githubLink="#"
+                    liveLink="https://play.google.com/store/apps/details?id=com.zero.zeeblog"
+                  />
                   <ProjectCard
                     title="ZeCon"
                     darkTheme={darkTheme}
@@ -500,7 +562,6 @@ const App = () => {
                     githubLink="#"
                     liveLink="#"
                   />
-                  {/* Project 5 */}
                   <ProjectCard
                     title="ZeeBlog"
                     darkTheme={darkTheme}
@@ -517,7 +578,23 @@ const App = () => {
                     githubLink="#"
                     liveLink="https://blog-web-azure.vercel.app/"
                   />
-                  {/* Project 6 */}
+                  <ProjectCard
+                    title="ZeCommerce"
+                    darkTheme={darkTheme}
+                    description="A full-stack e-commerce application with user authentication, product catalog, shopping cart, and payment integration."
+                    imageUrl="/image/zecommerce.png"
+                    technologies={[
+                      "Next.js",
+                      "Tailwind CSS",
+                      "Framer Motion",
+                      "Nest.js",
+                      "Node.js",
+                      "MongoDB",
+                      "GRPC",
+                    ]}
+                    githubLink="#"
+                    liveLink="#"
+                  />
                   <ProjectCard
                     title="ZeProperties"
                     darkTheme={darkTheme}
@@ -534,6 +611,23 @@ const App = () => {
                     githubLink="#"
                     liveLink="https://zeproperties.vercel.app/"
                   />
+                  {/* Project 2 */}
+                  <ProjectCard
+                    title="Note App"
+                    darkTheme={darkTheme}
+                    description="A responsive Note & Todo application with drag-and-drop functionality, real-time updates, and user collaboration features."
+                    imageUrl="/image/noteapp.png"
+                    technologies={["React", "Firebase", "CSS3", "JavaScript"]}
+                    githubLink="#"
+                    liveLink="https://noteapp-s1.web.app/"
+                  />
+
+                  {/* Project 4 */}
+
+                  {/* Project 5 */}
+
+                  {/* Project 6 */}
+
                   <ProjectCard
                     title="Buraq-Oil"
                     darkTheme={darkTheme}
@@ -618,7 +712,7 @@ const App = () => {
                     >
                       Send Me a Message
                     </h3>
-                    <form className="space-y-6">
+                    <form className="space-y-6" onSubmit={handleFormSubmit}>
                       <div>
                         <label
                           htmlFor="name"
@@ -632,13 +726,24 @@ const App = () => {
                           type="text"
                           id="name"
                           name="name"
+                          value={formValues.name}
+                          onChange={handleInputChange}
                           className={`w-full px-4 py-3 rounded-md ${
                             !darkTheme
                               ? "bg-gray-100 text-gray-900 border-gray-300"
                               : "dark:bg-gray-700 dark:text-gray-100 dark:border-gray-600"
                           }  border focus:border-purple-500 focus:ring focus:ring-purple-500 focus:ring-opacity-50 transition-all duration-300`}
-                          placeholder="Your Name"
+                          aria-invalid={!!formErrors.name}
+                          aria-describedby="name-error"
                         />
+                        {formErrors.name && (
+                          <p
+                            id="name-error"
+                            className="text-red-500 text-sm mt-1"
+                          >
+                            {formErrors.name}
+                          </p>
+                        )}
                       </div>
                       <div>
                         <label
@@ -653,13 +758,25 @@ const App = () => {
                           type="email"
                           id="email"
                           name="email"
+                          value={formValues.email}
+                          onChange={handleInputChange}
                           className={`w-full px-4 py-3 rounded-md ${
                             !darkTheme
                               ? "bg-gray-100 text-gray-900 border-gray-300"
                               : "dark:bg-gray-700 dark:text-gray-100 dark:border-gray-600"
                           }  border focus:border-purple-500 focus:ring focus:ring-purple-500 focus:ring-opacity-50 transition-all duration-300`}
                           placeholder="your.email@example.com"
+                          aria-invalid={!!formErrors.email}
+                          aria-describedby="email-error"
                         />
+                        {formErrors.email && (
+                          <p
+                            id="email-error"
+                            className="text-red-500 text-sm mt-1"
+                          >
+                            {formErrors.email}
+                          </p>
+                        )}
                       </div>
                       <div>
                         <label
@@ -674,19 +791,31 @@ const App = () => {
                           id="message"
                           name="message"
                           rows="5"
+                          value={formValues.message}
+                          onChange={handleInputChange}
                           className={`w-full px-4 py-3 rounded-md ${
                             !darkTheme
                               ? "bg-gray-100 text-gray-900 border-gray-300"
                               : "dark:bg-gray-700 dark:text-gray-100 dark:border-gray-600"
                           }  border focus:border-purple-500 focus:ring focus:ring-purple-500 focus:ring-opacity-50 transition-all duration-300 resize-y`}
-                          placeholder="Your message here..."
-                        ></textarea>
+                          placeholder="Your Name"
+                          aria-invalid={!!formErrors.message}
+                          aria-describedby="message-error"
+                        />
+                        {formErrors.message && (
+                          <p
+                            id="message-error"
+                            className="text-red-500 text-sm mt-1"
+                          >
+                            {formErrors.message}
+                          </p>
+                        )}
                       </div>
                       <button
                         type="submit"
-                        className="w-full bg-purple-600 hover:bg-purple-700 text-white font-bold py-3 px-6 rounded-md shadow-lg transition-all duration-300 transform hover:scale-105 focus:outline-none focus:ring-4 focus:ring-purple-500 focus:ring-opacity-50 text-lg"
+                        className="w-full flex items-center justify-center bg-purple-600 hover:bg-purple-700 text-white font-bold py-3 px-6 rounded-md shadow-lg transition-all duration-300 transform hover:scale-105 focus:outline-none focus:ring-4 focus:ring-purple-500 focus:ring-opacity-50 text-lg"
                       >
-                        Send Message
+                        Send Message <Send size={20} className="ml-2" />
                       </button>
                     </form>
                   </motion.div>
@@ -816,10 +945,48 @@ const App = () => {
         .animation-delay-4000 {
           animation-delay: 4s;
         }
+        @keyframes slide-in-out {
+          0% { transform: translateX(100%); opacity: 0; }
+          15% { transform: translateX(0); opacity: 1; }
+          85% { transform: translateX(0); opacity: 1; }
+          100% { transform: translateX(100%); opacity: 0; }
+        }
       `}</style>
       {/* The Tailwind CDN script is for the immersive environment. For local Next.js, you'll use a build process. */}
       {/* <script src="https://cdn.tailwindcss.com"></script> */}
     </div>
+  );
+};
+
+// Toast Component
+const Toast = ({ message, type, onClose }) => {
+  useEffect(() => {
+    const timer = setTimeout(() => {
+      onClose();
+    }, 5000); // Auto-close after 5 seconds
+
+    return () => {
+      clearTimeout(timer);
+    };
+  }, [onClose]);
+
+  const isSuccess = type === "success";
+
+  return (
+    <motion.div
+      initial={{ x: "100%", opacity: 0 }}
+      animate={{ x: 0, opacity: 1 }}
+      exit={{ x: "100%", opacity: 0 }}
+      transition={{ type: "spring", stiffness: 300, damping: 30 }}
+      className={`fixed bottom-5 right-5 p-4 rounded-lg shadow-lg flex items-center text-white z-50 ${
+        isSuccess ? "bg-green-500" : "bg-red-500"
+      }`}
+    >
+      <span className="flex-grow mr-4">{message}</span>
+      <button onClick={onClose} className="text-white hover:opacity-75">
+        <X size={20} />
+      </button>
+    </motion.div>
   );
 };
 
@@ -1005,4 +1172,3 @@ const ProjectCard = ({
 };
 
 export default App;
-
