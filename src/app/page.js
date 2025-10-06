@@ -512,6 +512,20 @@ const App = () => {
                 <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
                   {/* Project 1 */}
                   <ProjectCard
+                    title="Public Express"
+                    darkTheme={darkTheme}
+                    description="A Professional Responsive website for Student Consultancy firm."
+                    imageUrl="/image/publicxpress.png"
+                    technologies={[
+                      "Node.js",
+                      "Next.js",
+                      "Tailwind CSS",
+                      "Framer Motion",
+                    ]}
+                    githubLink="#"
+                    liveLink="https://publicxpress.vercel.app/"
+                  />
+                  <ProjectCard
                     title="Lincwall"
                     darkTheme={darkTheme}
                     description="A cross-platform Social Media mobile application for Students of Lincoln University,Malaysia."
